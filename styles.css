@@ -1,4 +1,4 @@
-/* Basic styling for the body */
+/* General body styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -6,27 +6,36 @@ body {
     background-color: #f4f4f4;
 }
 
-/* Ticker container that holds the ticker content */
+/* Container for the ticker */
 .ticker-container {
     width: 100%;
-    height: 50px; /* Adjust as needed */
     overflow: hidden;
     background-color: #333;
     color: white;
     padding: 10px 0;
     position: relative;
-    display: flex;
-    justify-content: center; /* Center align text */
-    align-items: center;
 }
 
-/* The content that will type out each news headline */
+/* Content inside the ticker */
 .ticker-content {
     display: flex;
-    flex-direction: column;
+    white-space: nowrap;
+    animation: ticker 20s linear infinite;
 }
 
-/* Individual ticker items (news headlines) */
-.ticker-item
+/* Individual ticker items */
+.ticker-item {
+    margin-right: 50px;
+    font-size: 18px;
+    padding-right: 30px;
+}
 
-
+/* Animation for scrolling the ticker */
+@keyframes ticker {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
