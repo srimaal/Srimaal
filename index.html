@@ -3,8 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>News Alerts</title>
+    <title>News Alerts with Images</title>
     <style>
+        #news-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 20px;
+        }
         #news-container {
             font-family: Arial, sans-serif;
             font-size: 24px;
@@ -13,6 +19,12 @@
             border-right: 2px solid black;
             display: inline-block;
             animation: blink-caret 0.75s step-end infinite;
+            flex: 1;
+        }
+        #image-container img {
+            max-width: 300px; /* Adjust as needed */
+            height: auto;
+            margin-left: 20px;
         }
         @keyframes blink-caret {
             50% {
@@ -22,25 +34,41 @@
     </style>
 </head>
 <body>
-    <div id="news-container"></div>
+    <div id="news-wrapper">
+        <div id="news-container"></div>
+        <div id="image-container">
+            <img id="news-image" src="" alt="News Image" style="display: none;">
+        </div>
+    </div>
 
     <script>
         const newsItems = [
-            "Breaking News: Market hits record high.",
-            "Alert: Severe weather warning in effect.",
-            "Update: New policy changes announced.",
-            "News Flash: Local team wins championship."
+            { text: "Breaking News: Market hits record high.", imageUrl: "https://example.com/image1.jpg" },
+            { text: "Alert: Severe weather warning in effect.", imageUrl: "https://example.com/image2.jpg" },
+            { text: "Update: New policy changes announced.", imageUrl: "https://example.com/image3.jpg" },
+            { text: "News Flash: Local team wins championship.", imageUrl: "https://example.com/image4.jpg" },
+            { text: "Tech News: New smartphone release tomorrow.", imageUrl: "https://example.com/image5.jpg" },
+            { text: "Economy: Inflation rates show signs of decline.", imageUrl: "https://example.com/image6.jpg" },
+            { text: "Sports Update: Star player out with injury.", imageUrl: "https://example.com/image7.jpg" },
+            { text: "Health Alert: New diet trend gaining popularity.", imageUrl: "https://example.com/image8.jpg" },
+            { text: "Science Discovery: New planet found in solar system.", imageUrl: "https://example.com/image9.jpg" },
+            { text: "World News: Major summit begins today.", imageUrl: "https://example.com/image10.jpg" }
         ];
-        
+
         let currentNewsIndex = 0;
         let charIndex = 0;
         const newsContainer = document.getElementById("news-container");
+        const newsImage = document.getElementById("news-image");
         const typingSpeed = 100;  // Typing speed in milliseconds
-        const pauseBetweenNews = 20000;  // Pause duration before next news item
+        const pauseBetweenNews = 2000;  // Pause duration before next news item
 
         function typeNews() {
-            if (charIndex < newsItems[currentNewsIndex].length) {
-                newsContainer.textContent += newsItems[currentNewsIndex].charAt(charIndex);
+            // Display the image
+            newsImage.src = newsItems[currentNewsIndex].imageUrl;
+            newsImage.style.display = 'block';
+
+            if (charIndex < newsItems[currentNewsIndex].text.length) {
+                newsContainer.textContent += newsItems[currentNewsIndex].text.charAt(charIndex);
                 charIndex++;
                 setTimeout(typeNews, typingSpeed);
             } else {
