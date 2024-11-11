@@ -83,6 +83,11 @@
 
         // Start typing the first news item
         typeNews();
+
+        // Refresh the page every 3 minutes (3 minutes = 180000 milliseconds)
+        setTimeout(() => {
+            location.reload();
+        }, 180000);
     </script>
 </body>
 </html>
