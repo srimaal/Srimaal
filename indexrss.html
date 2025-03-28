@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global News Aggregator</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .news-container { max-width: 800px; margin: auto; }
+        .news-item { border-bottom: 1px solid #ccc; padding: 10px 0; }
+        a { text-decoration: none; color: #007bff; }
+    </style>
+</head>
+<body>
+    <h1>Latest News from Leading Sources</h1>
+    <div class="news-container" id="news"></div>
+
+    <script>
+        const rssFeeds = [
+            "https://rss2json.com/api.json?rss_url=https://feeds.megaphone.fm/newheights",
+            "https://rss2json.com/api.json?rss_url=http://rss.cnn.com/rss/edition.rss",
+            "https://rss2json.com/api.json?rss_url=https://www.reutersagency.com/feed/?best-regions=world"
+        ];
+
+        async function fetchNews() {
+            let newsHTML = "";
+            for (let feed of rssFeeds) {
+                const response = await fetch(feed);
+                const data = await response.json();
+                data.items.slice(0, 5).forEach(item => {
+                    newsHTML += `<div class="news-item">
+                                    <h3><a href="${item.link}" target="_blank">${item.title}</a></h3>
+                                    <p>${item.pubDate}</p>
+                                </div>`;
+                });
+            }
+            document.getElementById("news").innerHTML = newsHTML;
+        }
+
+        fetchNews();
+    </script>
+</body>
+</html>
